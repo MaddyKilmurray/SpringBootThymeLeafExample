@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sakila Web - List of All Actors</title>
+    <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+</head>
+<body>
+<main>
+
+    <a th:href="@{/actor}"><button id="actor_search_button" >Search for an actor</button></a>
+    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
+    <a th:href="@{/actor}"><button id="new_actor_record_button">Create a new actor record</button></a>
+
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    First Name
+                </th>
+                <th>
+                    Last Name
+                </th>
+                <th></th>
+            </tr>
+            </thead>
+            <tr th:each="actor : ${allActors}">
+                <td th:text="${actor.firstName}">Actor's first name</td>
+                <td th:text="${actor.lastName}">Actor's last name</td>
+                <td>
+                    <form action="#" th:action="@{'/actor/delete/{id}'(id=${actor.id})}" th:method="delete" >
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+</main>
+</body>
+</html>

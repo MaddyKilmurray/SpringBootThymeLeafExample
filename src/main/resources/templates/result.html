@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sakila Web - Actor Search Result</title>
+    <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+</head>
+<body>
+<main>
+
+    <a th:href="@{/actor}"><button id="actor_search_button" >Search for an actor</button></a>
+    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
+    <a th:href="@{/actor}"><button id="new_actor_record_button">Create a new actor record</button></a>
+
+    <div>
+    <h1>Result</h1>
+    <p th:text="'ID: ' + ${newActor.id}" />
+    <p th:text="'First name: ' + ${newActor.firstName}" />
+    <p th:text="'Last name: ' + ${newActor.lastName}" />
+
+        <a href="/actor"><button>Submit another actor</button></a>
+    </div>
+</main>
+</body>
+</html>

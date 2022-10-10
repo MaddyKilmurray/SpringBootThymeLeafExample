@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sakila Web - Homepage</title>
+    <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+</head>
+<body>
+<main>
+    <button id="actor_search_button" >Search for an actor</button>
+    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
+    <button id="new_actor_record_button">Create a new actor record</button>
+
+    <form action="#" th:action="@{/actor/byid}" th:object="${foundActor}" method="get">
+        <label for="id">Actor ID: </label>
+        <input class="actor_search_input" type="number" id="id" name="id" placeholder="Actor ID" th:value="${id}"/>
+        <input id="actor_search_submit_button" type="submit" value="Submit"/>
+    </form>
+
+    <form action="#" th:action="@{/actor}" th:object="${newActor}" method="post">
+        <label for="first_name">First name: </label>
+        <input class="new_actor_input" type="text" id="first_name" name="first_name" th:field="*{firstName}" placeholder="First Name"/>
+        <label for="last_name">Last name: </label>
+        <input class="new_actor_input" type="text" id="last_name" name="last_name" th:field="*{lastName}" placeholder="Last Name"/>
+        <input id="new_actor_submit_button" type="submit" value="Submit"/>
+        <input type="reset" value="Reset" />
+    </form>
+</main>
+
+</body>
+</html>
