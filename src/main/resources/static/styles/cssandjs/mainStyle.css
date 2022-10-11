@@ -2,6 +2,19 @@ body {
     background-color: beige;
 }
 
+.main_container {
+    padding: 10%;
+}
+
+.nav_buttons {
+    margin-bottom: 2%;
+}
+
+.actor_search_input, .new_actor_input, .edit_actor_input {
+    margin-bottom: 2%;
+    margin-top: 2%;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

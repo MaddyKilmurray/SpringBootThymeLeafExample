@@ -4,14 +4,23 @@
     <meta charset="UTF-8">
     <title>Sakila Web - List of All Actors</title>
     <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
 <main>
-
-    <a th:href="@{/actor}"><button id="actor_search_button" >Search for an actor</button></a>
-    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
-    <a th:href="@{/actor}"><button id="new_actor_record_button">Create a new actor record</button></a>
-
+    <div class="main_container">
+        <div class="nav_buttons">
+            <a th:href="@{/actor}">
+                <button id="actor_search_button" type="button" class="btn btn-info">Search for an actor</button>
+            </a>
+            <a th:href="@{/actor/all}">
+                <button id="all_actors_button" type="button" class="btn btn-info">Show all actors</button>
+            </a>
+            <a th:href="@{/actor}">
+                <button id="new_actor_record_button" type="button" class="btn btn-info">Create a new actor record</button>
+            </a>
+        </div>
+    <div>
         <table>
             <thead>
             <tr>
@@ -22,19 +31,28 @@
                     Last Name
                 </th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tr th:each="actor : ${allActors}">
                 <td th:text="${actor.firstName}">Actor's first name</td>
                 <td th:text="${actor.lastName}">Actor's last name</td>
                 <td>
+                    <form action="#" th:action="@{/actor/byid}" th:object="${actor}" th:method="get" >
+                        <input hidden class="actor_search_input form-control" type="number" id="id" name="id"
+                               th:value="${actor.id}"/>
+                        <button type="submit" class="btn btn-info">Edit</button>
+                    </form>
+                </td>
+                <td>
                     <form action="#" th:action="@{'/actor/delete/{id}'(id=${actor.id})}" th:method="delete" >
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="btn btn-info">Delete</button>
                     </form>
                 </td>
             </tr>
         </table>
-
+    </div>
+    </div>
 </main>
 </body>
 </html>

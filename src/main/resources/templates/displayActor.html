@@ -4,14 +4,22 @@
     <meta charset="UTF-8">
     <title>Sakila Web - Actor Found</title>
     <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
 <main>
-
-    <a th:href="@{/actor}"><button id="actor_search_button" >Search for an actor</button></a>
-    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
-    <a th:href="@{/actor}"><button id="new_actor_record_button">Create a new actor record</button></a>
-
+    <div class="main_container">
+        <div class="nav_buttons">
+            <a th:href="@{/actor}">
+                <button id="actor_search_button" type="button" class="btn btn-info">Search for an actor</button>
+            </a>
+            <a th:href="@{/actor/all}">
+                <button id="all_actors_button" type="button" class="btn btn-info">Show all actors</button>
+            </a>
+            <a th:href="@{/actor}">
+                <button id="new_actor_record_button" type="button" class="btn btn-info">Create a new actor record</button>
+            </a>
+        </div>
     <div th:if="${foundActor != null}">
         <h2>Found actor</h2>
         <table>
@@ -27,7 +35,26 @@
             </tr>
         </table>
     </div>
-    <a href="/actor"><button>Find another actor</button></a>
+
+        <div>
+            <h1>Add a new actor record</h1>
+            <form action="#" th:action="@{/actor/update}" th:object="${foundActor}" th:method="patch">
+                <label for="actor_id" hidden>Actor ID: </label>
+                <input hidden class="edit_actor_input form-control" type="text" id="actor_id" name="actor_id" th:field="*{id}"
+                       placeholder="Actor ID"/>
+                <label for="first_name" hidden>First name: </label>
+                <input class="edit_actor_input form-control" type="text" id="first_name" name="first_name" th:field="*{firstName}"
+                       placeholder="First Name"/>
+                <label for="last_name" hidden>Last name: </label>
+                <input class="edit_actor_input form-control" type="text" id="last_name" name="last_name" th:field="*{lastName}"
+                       placeholder="Last Name"/>
+                <input id="edit_actor_submit_button" type="submit" value="Submit" class="btn btn-info"/>
+                <input type="reset" value="Reset" class="btn btn-info"/>
+            </form>
+        </div>
+
+    <a href="/actor"><button type="button" class="btn btn-info">Find another actor</button></a>
+    </div>
 </main>
 </body>
 </html>

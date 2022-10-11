@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Sakila Web - Actor Search Result</title>
+    <title>Sakila Web - Actor Found</title>
     <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
@@ -20,14 +20,22 @@
                 <button id="new_actor_record_button" type="button" class="btn btn-info">Create a new actor record</button>
             </a>
         </div>
-    <div class="container">
-        <h1>Result</h1>
-        <p th:text="'ID: ' + ${newActor.id}" />
-        <p th:text="'First name: ' + ${newActor.firstName}" />
-        <p th:text="'Last name: ' + ${newActor.lastName}" />
-
-        <a href="/actor"><button type="button" class="btn btn-info">Submit another actor</button></a>
+    <div th:if="${updatedActor != null}">
+        <h2>Updated actor</h2>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tr>
+                <td th:text="${updatedActor.id}">The actor's first name</td>
+                <td th:text="${updatedActor.firstName}">The actor's first name</td>
+                <td th:text="${updatedActor.lastName}">The actor's last name</td>
+            </tr>
+        </table>
     </div>
+    <a href="/actor/all"><button type="button" class="btn btn-info">Update another actor</button></a>
     </div>
 </main>
 </body>

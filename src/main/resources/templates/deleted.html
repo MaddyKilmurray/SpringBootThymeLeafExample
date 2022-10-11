@@ -4,17 +4,26 @@
     <meta charset="UTF-8">
     <title>Sakila Web - Actor Deleted</title>
     <link th:href="@{/styles/cssandjs/mainStyle.css}" rel="stylesheet"/>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
 </head>
 <body>
 <main>
-
-    <a th:href="@{/actor}"><button id="actor_search_button" >Search for an actor</button></a>
-    <a th:href="@{/actor/all}"><button id="all_actors_button">Show all actors</button></a>
-    <a th:href="@{/actor}"><button id="new_actor_record_button">Create a new actor record</button></a>
-
+    <div class="main_container">
+        <div class="nav_buttons">
+            <a th:href="@{/actor}">
+                <button id="actor_search_button" type="button" class="btn btn-info">Search for an actor</button>
+            </a>
+            <a th:href="@{/actor/all}">
+                <button id="all_actors_button" type="button" class="btn btn-info">Show all actors</button>
+            </a>
+            <a th:href="@{/actor}">
+                <button id="new_actor_record_button" type="button" class="btn btn-info">Create a new actor record</button>
+            </a>
+        </div>
     <div th:if="${deletedActor != null}">
         <h2 th:text="${deletedActor.id} + ' has been deleted'">actor</h2>
-        <a href="/actor/all"><button>Delete another actor</button></a>
+        <a href="/actor/all"><button type="button" class="btn btn-info">Delete another actor</button></a>
+    </div>
     </div>
 </main>
 

@@ -1,22 +1,21 @@
 package com.sparta.sakilaweb.controller;
 
+import com.sparta.sakilaweb.dao.ActorDao;
+import com.sparta.sakilaweb.dto.ActorDto;
 import com.sparta.sakilaweb.entity.Actor;
-import com.sparta.sakilaweb.repository.ActorRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Instant;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class SakilaWebController {
 
-    private final ActorRepository repository;
+    private final ActorDao actorDao;
 
-    public SakilaWebController(ActorRepository repository) {
-        this.repository = repository;
+    public SakilaWebController(ActorDao actorDao) {
+        this.actorDao = actorDao;
     }
 
     @GetMapping("/actor")
@@ -27,25 +26,23 @@ public class SakilaWebController {
 
     @GetMapping("/actor/byid")
     public String findActor(@RequestParam int id, Model model) {
-        Actor result = repository.findById(id).get();
-        model.addAttribute("foundActor",result);
+        ActorDto foundActor = actorDao.findById(id);
+        model.addAttribute("foundActor",foundActor);
         return "displayActor";
     }
 
     @GetMapping("/actor/all")
     public String findAllActors(Model model) {
-        List<Actor> allActors = repository.findAll();
+        List<ActorDto> allActors = actorDao.findAll();
         model.addAttribute("allActors",allActors);
         return "allActors";
     }
 
-    @PostMapping("/actor")
+    @PostMapping("/actor/new")
     public String newActor(@ModelAttribute Actor actor, Model model) {
-        actor.setLastUpdate(Instant.now());
-        repository.save(actor);
-        Optional<Actor> savedActor = repository.findActorByFirstNameAndLastName(actor.getFirstName(),actor.getLastName());
-        if (savedActor.isPresent()) {
-            model.addAttribute("newActor",actor);
+        ActorDto savedActor = actorDao.createNewActor(actor);
+        if (savedActor.getId() != -1) {
+            model.addAttribute("newActor",savedActor);
             return "result";
         }
         else {
@@ -53,12 +50,17 @@ public class SakilaWebController {
         }
     }
 
+    @PatchMapping("/actor/update")
+    public String updateActor(@ModelAttribute Actor actor, Model model) {
+        ActorDto updatedActor = actorDao.updateActor(actor);
+        model.addAttribute("updatedActor",updatedActor);
+        return "updatedActor";
+    }
+
     @DeleteMapping("/actor/delete/{id}")
     public String deleteActor(@PathVariable int id, Model model) {
-        Optional<Actor> foundActor = repository.findById(id);
-        if (foundActor.isPresent()) {
-            repository.delete(foundActor.get());
-            model.addAttribute("deletedActor",foundActor.get());
+        ActorDto foundActor = actorDao.deleteActor(id);
+        if (foundActor.getId() != -1) {
             return "deleted";
         }
         else {
